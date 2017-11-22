@@ -98,9 +98,8 @@ def containerBuildPub(Map args) {
         def name = "${args.host}/${args.acct}/${args.repo}:${tag}"
         def img = docker.image(name)
         sh "docker build --build-arg VCS_REF=${env.GIT_SHA} --build-arg BUILD_DATE=`date -u +'%Y-%m-%dT%H:%M:%SZ'` -t '${name}' ${args.dockerfile}"
-        img.push(tag)
 
-        for (int i = 1; i < args.tags.size(); i++) {
+        for (int i = 0; i < args.tags.size(); i++) {
             img.push(args.tags.get(i))
         }
 
